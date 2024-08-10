@@ -1,6 +1,11 @@
 <?php 
 
+    date_default_timezone_set("Asia/Tokyo");
+
     $comment_array = array();
+    $pdo = null;
+    $stmt = null;
+    $error_message = array();
 
     //connect to DB
     try {
@@ -11,17 +16,32 @@
 
     // when enter form
     if (!empty($_POST["submitButton"])) {
-        $postDate = date("Y-m-d H:i:s");
 
-        try {
-            $stmt = $pdo->prepare("INSERT INTO `bbs_table` (`username`, `comment`, `postDate`) VALUES (:username, :comment, :postDate)");
-            $stmt->bindParam(':username', $_POST['username'], PDO::PARAM_STR);
-            $stmt->bindParam(':comment', $_POST["comment"], PDO::PARAM_STR);
-            $stmt->bindParam(":postDate", $postDate, PDO::PARAM_STR);
+        // check name
+        if (empty($_POST["username"])) {
+            echo "empty name\n";
+            $error_message["username"] = "input name";
+        }
 
-            $stmt->execute();
-        } catch (PDOException $e) {
-            echo $e->getMessage();
+        // check comment
+        if (empty($_POST["comment"])) {
+            echo "empty comment\n";
+            $error_message["comment"] = "input comment";
+        }
+
+        if (empty($error_message)) {
+            $postDate = date("Y-m-d H:i:s");
+
+            try {
+                $stmt = $pdo->prepare("INSERT INTO `bbs_table` (`username`, `comment`, `postDate`) VALUES (:username, :comment, :postDate)");
+                $stmt->bindParam(':username', $_POST['username'], PDO::PARAM_STR);
+                $stmt->bindParam(':comment', $_POST["comment"], PDO::PARAM_STR);
+                $stmt->bindParam(":postDate", $postDate, PDO::PARAM_STR);
+
+                $stmt->execute();
+            } catch (PDOException $e) {
+                echo $e->getMessage();
+            }
         }
     }
 
