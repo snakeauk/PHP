@@ -9,7 +9,7 @@
 
     //connect to DB
     try {
-        $pdo = new PDO('mysql:host=localhost;dbname=bbs', "root", );
+        $pdo = new PDO('mysql:host=localhost;dbname=bbs', "root", "password");
     } catch (PDOException $e) {
         echo $e->getMessage();
     }
@@ -71,11 +71,11 @@
                         <div class="wrapper">
                             <div class="nameArea">
                                 <span>名前 : </span>
-                                <p class="username"><?php echo $comment["username"]; ?></p>
+                                <p class="username"><?php echo htmlspecialchars($comment["username"]); ?></p>
                                 <time>:<?php echo $comment["postDate"]?></time>
                             </div>
                         </div>
-                        <p class="comment"><?php echo $comment["comment"]; ?></p>
+                        <p class="comment"><?php echo htmlspecialchars($comment["comment"]); ?></p>
                     </article>
                 <?php endforeach; ?>
             </section>
