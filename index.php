@@ -76,6 +76,7 @@
                                 <time>:<?php echo $comment["postDate"]?></time>
                             </div>
                         </div>
+<!-- injection -->
                         <p class="comment"><?php echo htmlspecialchars($comment["comment"]); ?></p>
                     </article>
                 <?php endforeach; ?>
