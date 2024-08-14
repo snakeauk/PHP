@@ -71,6 +71,7 @@
                         <div class="wrapper">
                             <div class="nameArea">
                                 <span>名前 : </span>
+<!-- injection -->
                                 <p class="username"><?php echo htmlspecialchars($comment["username"]); ?></p>
                                 <time>:<?php echo $comment["postDate"]?></time>
                             </div>
